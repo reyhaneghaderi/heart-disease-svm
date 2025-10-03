@@ -12,6 +12,18 @@ The model is a Support Vector Machine (SVM) with full preprocessing, hyperparame
     - Hyperparameter tuning: GridSearchCV with 5-fold Stratified CV
     - Metrics: ROC-AUC, PR-AUC, Precision, Recall, F1
     - Calibration (Platt scaling – sigmoid) for trustworthy probability outputs
+ - To predict whether a patient is likely to have heart disease (target = HeartDisease, binary classification) and provide not only accurate predictions but also trustworthy probability estimates that can support doctors in decision-making.
+      
+ 
+ # Pipeline Design
+
+  - Preprocessing (ColumnTransformer):
+  - Numerical: KNNImputer → StandardScaler
+  - Categorical: SimpleImputer → OneHotEncoder
+   - Classifier: SVC (linear / RBF kernel)
+  - Model Selection: GridSearchCV with Stratified 5-fold CV
+  - Calibration: Platt scaling (CalibratedClassifierCV(method="sigmoid"))
+       
 # Key Results
 
   - Best parameters: kernel='rbf', C≈1.1, gamma≈0.01
@@ -34,6 +46,15 @@ The model is a Support Vector Machine (SVM) with full preprocessing, hyperparame
 
 - This threshold ensures high sensitivity (few missed heart disease cases) while maintaining strong precision.   
 - Interpretation: Calibration improved probability reliability—after sigmoid scaling, predicted probabilities better match true frequencies, crucial for medical decision support.
+
+  # Explain Results 
+
+   - Overall accuracy: The model achieves about 92.5% discriminative power (ROC-AUC = 0.925). This means out of 100 patients, around 92 are correctly classified   as having or not having heart disease.
+    - Precision (87.7%): When the model predicts “disease,” it is correct almost 9 out of 10 times.
+   -  Recall (91.2%): The model successfully detects 9 out of 10 actual patients with heart disease, missing only about 9%.
+    - Calibration: The model outputs reliable probabilities. For example, if it says a patient has a 70% chance of disease, in reality ~70% of such patients are  truly positive. This is critical for medical trust.
+
+  - Use in practice: The model can act as a decision support tool to help doctors identify high-risk patients earlier. It is not a replacement for clinical judgment, but a complement to tests and medical expertise.
 
   # Visual Insights
 
