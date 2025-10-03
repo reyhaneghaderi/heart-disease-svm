@@ -15,23 +15,14 @@ The model is a Support Vector Machine (SVM) with full preprocessing, hyperparame
 # Key Results
 
   - Best parameters: kernel='rbf', C≈1.1, gamma≈0.01
-
--  - Cross-validation ROC-AUC (mean): 0.9216
-
+  - Cross-validation ROC-AUC (mean): 0.9216
    - Test performance (pre-calibration):
-
    - ROC-AUC ≈ 0.922
-
    - PR-AUC ≈ 0.923
-
  - Test performance (post-calibration):
-
     - ROC-AUC ≈ 0.925
-
     - PR-AUC ≈ 0.931
-
   - Brier score: 0.102
-
   - ECE (Expected Calibration Error): 0.047
 
 - Interpretation: Calibration improved probability reliability—after sigmoid scaling, predicted probabilities better match true frequencies, crucial for medical decision support.
